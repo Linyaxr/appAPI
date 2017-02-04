@@ -1,0 +1,12 @@
+<ion-view title="每日漫画">
+  <ion-content>
+   <p class="mhHead">目前只收录了以下类目漫画</p>
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+   <ul class="mh_list">
+     <li ng-repeat="lia in hbmhList" ng-click="showMH(lia.ty)">{{lia.co}}</li>
+   </ul>
+  </ion-content>
+</ion-view>

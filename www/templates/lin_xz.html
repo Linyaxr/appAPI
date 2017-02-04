@@ -1,0 +1,41 @@
+<ion-view title="星座运势查询">
+  <ion-content>
+    <div class="list">
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="请输入星座名称：白羊座、金牛座" ng-model="linxz">
+        </label>
+        <button class="button button-clear" ng-click="linXZ(linxz)">
+          <i class="ion-ios-search btnS"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+    <div class="lin_sfzInfo" ng-if="disXZ">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <h5>查询结果 --（{{apiResult.name}}）</h5>
+          <!--<div>-->
+            <!--<div class="infoKey" ng-init='initSFZlist={ 1:"星座名称",3:"今日运势指数",4:"幸运色",5:"健康指数",6:"爱情指数",7:"财运指数",8:"幸运数字",9:"配对星座",10:"今日解读",11:"",12:""}'><p ng-repeat="results in initSFZlist">{{results}}</p></div>-->
+            <!--<div class="infoVal"><p ng-repeat="result in apiResult">{{result}}</p></div>-->
+          <!--</div>-->
+          <div class="lin_xzCont">
+            <h4>更新时间 -- {{apiResult.datetime}}</h4>
+            <h4>配对星座 -- {{apiResult.QFriend}}</h4>
+            <h4>幸运颜色 -- {{apiResult.color}}</h4>
+            <h4>健康指数 -- {{apiResult.health}}</h4>
+            <h4>爱情指数 -- {{apiResult.love}}</h4>
+            <h4>财运指数 -- {{apiResult.money}}</h4>
+            <h4>今日解读 -- "{{apiResult.summary}}"</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

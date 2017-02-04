@@ -1,0 +1,31 @@
+<ion-view title="手机归属地查询">
+  <ion-content>
+    <div class="list">
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="输入手机号码即可查询" ng-model="linPhone">
+        </label>
+        <button class="button button-clear" ng-click="linSJGSD(linPhone)">
+          <i class="ion-ios-search btnS"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+    <div class="lin_sfzInfo" ng-if="disSJGSD">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <h5>查询结果</h5>
+          <div>
+            <div class="infoKey" ng-init="initSFZlist={0:'省份',1:'运营商',2:'地区'}"><p ng-repeat="results in initSFZlist">{{results}}</p></div>
+            <div class="infoVal"><p ng-repeat="result in apiResult.showapi_res_body">{{result}}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

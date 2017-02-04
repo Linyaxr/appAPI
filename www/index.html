@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- un-comment this code to enable service worker
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('Error', err));
+    }
+  </script>-->
+
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="css/ionic.app.css" rel="stylesheet">
+  -->
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+
+<body ng-app="starter">
+<ion-nav-view>
+
+  <!--星座配对-->
+  <script id="xzpd.html" type="text/ng-template">
+    <ion-modal-view>
+      <div class="tx_aboutCon">
+        <div class="bar bar-header bar-light">
+          <h1 class="title">星座配对</h1>
+          <button class="button button-clear" ng-click="xzpd.hide()"><i class="ion-close-circled" style="font-size:20px;"></i></button>
+        </div>
+      </div>
+    </ion-modal-view>
+  </script>
+
+
+  <!--作者的话-->
+  <script id="templates/modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">关于FN助手</h1>
+        <button class="button button-clear" ng-click="modal.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content class="padding">
+        <p class="lin_descCont">FN助手是款免费软件，里面集合了一些生活中会用到的功能模块；另外所有数据都来源于互联网，信息经过加密处理，可不必担心隐私泄露。</p>
+        <div class="content ionic-pseudo" style="top: 20px;">
+          <div class="list">
+            <a class="item item-avatar" href="#">
+              <h3 class="zztx">作者微信：yuan15217655669</h3>
+              <h3 class="zztx">邮箱：ztcmkj@gmail.com</h3>
+              <p class="zztxwx">如果你有好的建议、合作欢迎添加微信。</p>
+              <p class="zztxwx">power by ionic</p>
+            </a>
+          </div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--捐赠-->
+  <script id="templates/jz.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">打赏</h1>
+        <button class="button button-clear" ng-click="jz.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content class="padding">
+        <div class="list">
+          <h4>打赏方法</h4>
+          <div class="lin_jz">
+            因软件不支持线上打赏，所以可添加作者微信进行打赏。
+            <div style="width: 150px;height: 150px;margin: 0px auto;"><img src="./img/qc.jpg" style="width: 100%;height: 100%;"></div>
+            <p>或者支付宝转账（13480307561）</p>
+          </div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--汇率列表-->
+  <script id="templates/hl.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">切换货币</h1>
+        <button class="button button-clear" ng-click="hl.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="hb_search"></div>
+        <div class="hb_list">
+          <h5>常用货币
+          <p style="font-size: 12px;margin: 10px 0px 0px;color:#778087;">目前货币列表只列出常用的货币类型</p></h5>
+          <ul>
+            <li ng-repeat="a in hbList" ng-click="appendItem(a.co,a.ty)">
+              <p>{{a.co}}</p>
+              <p>{{a.ty}}</p>
+            </li>
+          </ul>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--每日漫画-->
+  <script id="templates/mh.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">漫画列表</h1>
+        <button class="button button-clear" ng-click="mh.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content>
+        <div style="text-align: center;padding: 50px;" ng-if="disabs">
+          <ion-spinner icon="android"></ion-spinner>
+          <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">内容加载中，请稍等.</p>
+        </div>
+        <div class="mhCon_list">
+          <ul>
+            <li ng-repeat="a in apiResult" ng-click="showmh(a.id)">
+              <img src={{a.thumbnailList[0]}}>
+              <div>
+                <p>{{a.title}}</p>
+              </div>
+            </li>
+          </ul>
+          </ul>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--漫画详情-->
+  <script id="templates/mhDesc.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">漫画内容</h1>
+        <button class="button button-clear" ng-click="mhDesc.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="mhCon_Cont">
+          <h3>{{apiResult.title}}</h3>
+          <p>{{apiResult.time}}</p>
+          <ul>
+            <li ng-repeat="a in apiResult.imgList"><img src="{{a}}"></li>
+          </ul>
+          <p>到底啦</p>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--天气-->
+  <script id="templates/tq.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">天气查询</h1>
+        <button class="button button-clear" ng-click="tq.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content>
+        <div class=""></div>
+        <div class="tq_head">
+          <img src="./img/2.jpg" alt="">
+          <div class="tq_cityList">
+            <div class="tq_update">
+              更新时间（{{ad[0].basic.update.loc}}）<i class="cityInfo">{{ad[0].aqi.city.qlty}}</i><i class="cityInfo" style="background: #00B7FF">{{ad[0].now.cond.txt}}</i>
+            </div>
+            <div class="tq_city">
+              <span>{{ad[0].basic.city}}</span>
+              <span><i class="ion-log-out" style="color: #000"></i></span>
+              <span>{{ad[0].basic.cnty}}</span>
+            </div>
+            <div class="tq_wendu">
+              <span class="tq_wenduC">{{ad[0].now.tmp}}&#8451 </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tq_lifeStyle">
+          <h5 class="tq_lifeTit"><i class="ion-ios-sunny-outline" style="font-size: 31px;margin-left: 10px;"></i><span>城市生活指数</span></h5>
+          <div class="tq_lifeCont">
+            <ul>
+              <li>
+                <h5>城市舒适度指数： <span>{{ad[0].suggestion.comf.brf}}</span></h5>
+                <p>{{ad[0].suggestion.comf.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #00B7FF;">洗车指数： <span>{{ad[0].suggestion.cw.brf}}</span></h5>
+                <p>{{ad[0].suggestion.cw.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #528CE0;">穿衣指数： <span>{{ad[0].suggestion.drsg.brf}}</span></h5>
+                <p>{{ad[0].suggestion.drsg.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #ef473a;">感冒指数： <span>{{ad[0].suggestion.flu.brf}}</span></h5>
+                <p>{{ad[0].suggestion.flu.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #333333;">运动指数： <span>{{ad[0].suggestion.sport.brf}}</span></h5>
+                <p>{{ad[0].suggestion.sport.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #4B946A;">旅游指数： <span>{{ad[0].suggestion.trav.brf}}</span></h5>
+                <p>{{ad[0].suggestion.trav.txt}}</p>
+              </li>
+              <li>
+                <h5 style="border-left: 5px solid #6b46e5;">紫外线指数： <span>{{ad[0].suggestion.uv.brf}}</span></h5>
+                <p>{{ad[0].suggestion.uv.txt}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!--影视查询-->
+  <script id="templates/ysyx.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-light" style="background:#333;">
+        <h1 class="title" style="color: #fff;">影视信息</h1>
+        <button class="button button-clear" ng-click="ysyx.hide()"><i class="ion-close-circled" style="font-size:20px;color: #ffffff;"></i></button>
+        </button>
+      </ion-header-bar>
+      <ion-content>
+
+        <div class="ys_header">
+          <div class="ys_img">
+
+            <div class="ys_imgMain">
+              <img src="./img/1214911.jpg" alt="">
+              <div class="ys_mainInfo">
+                <h6>僵尸世界大战 -- 2014上映</h6>
+                <h5>美国 （喜剧、犯罪）</h5>
+                <h4>导演：就、的按时</h4>
+                <h3>主演：大师安老师看见的、打死就、的按时,</h3>
+              </div>
+            </div>
+
+            <img src="./img/1214911.jpg" class="ys_imgbg">
+
+          </div>
+          <div class="ys_desc">
+            <p>影视简介：大叔级的号你打啥借口了农村看好卡萨丁结婚的福气哦客户端卡斯是经济才能考虑今年微积分换款式就打车你空间</p>
+          </div>
+        </div>
+
+        <!--播放地址-->
+        <div class="ys_info">
+          <h1><img src="./img/movie.png" style="width: 20px;position: absolute;left: -19px;top: -1px;"> 播放地址</h1>
+          <ul class="ys_resou">
+            <li>
+              <div class="ys_resouLink">
+                <p>http://baike.so.com/doc/1117785-1182683.html</p>
+                <span><a>复制</a></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="ys_xg">
+          <h1><img src="./img/movie.png" style="width: 20px;position: absolute;left: -19px;top: -1px;"> 相关影片</h1>
+          <ul class="ys_resou">
+            <li>
+              <a href="">
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--活死人asdasdasd</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="ys_aboutYY">
+          <div class="ys_xg">
+            <h1><img src="./img/movie.png" style="width: 20px;position: absolute;left: -19px;top: -1px;"> 演员列表</h1>
+            <ul class="ys_resou">
+              <li>
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--活死人asdasdasd</p>
+              </li>
+              <li>
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--</p>
+              </li>
+              <li>
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--asdasdasd</p>
+              </li>
+              <li>
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--</p>
+              </li>
+              <li>
+                <div class="ys_resouImg"><img src="./img/1214911.jpg" alt=""></div>
+                <p>行尸走肉--</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+</ion-nav-view>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+    </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" style="color: #fff;">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button class="button button-clear ion-ios-help-outline" ng-click="modal.show()" style="color: #fff;font-size: 23px;top: -1px;">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <ion-content class="leftBar">
+      <ul class="lin_ai">
+        <li ng-click="lin_jz()">
+          打赏
+        </li>
+      </ul>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

@@ -1,0 +1,65 @@
+<ion-view title="汇率转换">
+  <ion-content style="background:#374850;">
+    <div class="lin_hlHead">
+      <h4><i class="ion-android-alert" style="font-size: 20px;position: absolute;left: 21px;top: 15px;"></i> <span>请选择需要转化的货币类型</span></h4>
+      <div class="lin_hlNumber">
+        <div class="lin_hlType">
+          <div class="lin_formType" ng-click="lin_showTypea()">
+            <p>{{hbCona}} <b></b> {{hbTypea}}</p>
+            <span class="lin_downIcon"><i class="ion-ios-arrow-down"></i></span>
+          </div>
+          <div class="lin_toType" ng-click="lin_showTypeb()">
+            <p>{{hbConb}} <b></b>  {{hbTypeb}}</p>
+            <span class="lin_downIcon"><i class="ion-ios-arrow-down"></i></span>
+          </div>
+        </div>
+        <div class="lin_hlChange">
+          <input type="number" placeholder="请输入转化金额" ng-model="hlNum">
+        </div>
+      </div>
+      <button class="button button-full button-light" style="background: #333436;color: #fff;width: 98%;margin:10px auto;" ng-click="lin_hl(hbTypea,hbTypeb,hlNum)">
+        转换
+      </button>
+    </div>
+
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+
+    <div class="hb_transformRes" ng-if="showX">
+      <div class="hb_result">
+        <ul>
+          <li>
+            <p>{{hbCona}}</p>
+            <p>{{hbTypea}}</p>
+          </li>
+          <li>
+            <p>汇率比例</p>
+            <p>1 = {{apiResult.showapi_res_body.money / hlNum | hbFilter : hlNum }}</p>
+          </li>
+          <li>
+            <p>{{hbConb}}</p>
+            <p>{{hbTypeb}}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="hb_result">
+        <ul>
+          <li>
+            <p>{{hlNum}}</p>
+            <p>{{hbCona}}</p>
+          </li>
+          <li>
+            <p>=</p>
+            <p>等于</p>
+          </li>
+          <li>
+            <p>{{apiResult.showapi_res_body.money}}</p>
+            <p>{{hbConb}}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

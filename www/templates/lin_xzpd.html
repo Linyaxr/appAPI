@@ -1,0 +1,32 @@
+<ion-view title="星座配对">
+  <ion-content>
+    <div class="list" style="padding: 0px;">
+      <label class="item item-input item-stacked-label xzpdLab">
+        <span class="input-label" style="border-left: 7px solid #00B7FF;font-size: 14px;padding: 0px 0px 0px 10px;">自己星座</span>
+        <input type="text" placeholder="请输入自己的星座" style="margin: 10px 0px 3px;" ng-model="firXz">
+      </label>
+      <label class="item item-input item-stacked-label xzpdLab">
+        <span class="input-label" style="border-left: 7px solid #ff3b30;font-size: 14px;padding: 0px 0px 0px 10px;">对方星座</span>
+        <input type="text" placeholder="请输入对方的星座" style="margin: 10px 0px 3px;" ng-model="lastXz">
+      </label>
+      <button class="button button-full button-positive" ng-click="linXZPD(firXz,lastXz)" style="width: 98%;margin: 10px auto;border-radius: 5px;">
+        查询
+      </button>
+    </div>
+
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+
+    <div class="lin_sfzInfo" ng-if="disXZPD">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <h5>查询结果</h5>
+          <p>{{apiResult.newslist[0].content}}</p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/platforms" />
+    </content>
+    <content url="file://E:/gsProject/Txcoin">
+      <excludeFolder url="file://E:/gsProject/Txcoin/platforms" />
+      <excludeFolder url="file://E:/gsProject/Txcoin/plugins/com.brodysoft.sqlitePlugin/test-www/platforms" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

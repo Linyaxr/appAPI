@@ -1,0 +1,38 @@
+<ion-view title="彩票开奖查询">
+  <ion-content>
+    <div class="lin_cpC">
+      <div class="lin_cpType">
+        <span>彩票种类</span>
+        <div class="lin-cpList">
+          <div class="item item-input item-select" style="padding:1px 5px 2px;">
+            <div class="input-label">
+              种类：
+            </div>
+            <select ng-model="selectedSite">
+              <option ng-repeat="x in cplist" value="{{x.cpType}}">{{x.cpCont}}</option>
+              <input type="hidden" ng-model="selectedSite">
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="button button-full button-positive" ng-click="linCP(selectedSite)">
+        本期开奖查询
+      </button>
+    </div>
+    <div style="text-align: center;padding: 50px;" ng-if="disab">
+      <ion-spinner icon="android"></ion-spinner>
+      <p style="margin: 4px 0px;font-size: 12px;color: #c0c0c0;">查找中...</p>
+    </div>
+    <div class="lin_sfzInfo" ng-if="disCP">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <h5>查询结果</h5>
+          <div>
+            <div class="infoKey" ng-init="initSFZlist={0:'开奖期数',1:'开奖号码',2:'开奖时间'}"><p ng-repeat="results in initSFZlist">{{results}}</p></div>
+            <div class="infoVal"><p ng-repeat="result in apiResult.retData.data[0]">{{result}}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
